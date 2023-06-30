@@ -20,6 +20,6 @@ export default defineNuxtConfig({
             { src: 'https://js.stripe.com/v3/', defer: true }
           ],
         },
-        baseURL: "Aryusa"
+        baseURL: "/Aryusa/"
       }
 })
