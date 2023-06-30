@@ -1,5 +1,5 @@
 {
-  "name": "Aryusa",
+  "name": "aryusa",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
