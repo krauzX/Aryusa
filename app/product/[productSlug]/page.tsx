@@ -23,7 +23,6 @@ interface ImageItem {
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
   // sending API request for a single product with a given product slug+ /* @next-codemod-ignore */
   let { productSlug } = await params;
-  console.log();
 
   const data = await fetch(`http://localhost:3001/api/slugs/${productSlug}`);
   const product = await data.json();

@@ -1,3 +1,12 @@
+declare module "next" {
+  export interface PageProps {
+    params?: {
+      id: string; // Adjust the type as necessary
+    };
+    searchParams?: any;
+  }
+}
+
 interface Product {
   id: string;
   slug: string;
@@ -14,9 +23,9 @@ interface Product {
 }
 
 interface SingleProductPageProps {
-  params: {
-    productSlug: string;
-  };
+  params: Promise<{
+    productSlug: Promise<string>;
+  }>;
 }
 
 type ProductInWishlist = {

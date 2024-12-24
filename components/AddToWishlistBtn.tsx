@@ -19,7 +19,7 @@ import { FaHeart } from "react-icons/fa6";
 
 interface AddToWishlistBtnProps {
   product: Product;
-  slug: string;
+  slug: Promise<string>;
 }
 
 const AddToWishlistBtn = ({ product, slug }: AddToWishlistBtnProps) => {

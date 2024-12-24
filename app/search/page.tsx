@@ -2,7 +2,7 @@ import { ProductItem, SectionTitle } from "@/components";
 import React from "react";
 
 interface Props {
-  searchParams: { search: string };
+  searchParams: Promise<{ search: string }>;
 }
 // sending api request for search results for a given search text
 const SearchPage = async (obj: Props) => {

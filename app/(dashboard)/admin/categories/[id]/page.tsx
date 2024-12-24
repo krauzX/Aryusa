@@ -1,43 +1,62 @@
 "use client";
+
 import { DashboardSidebar } from "@/components";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { formatCategoryName } from "../../../../../utils/categoryFormating";
-import { convertCategoryNameToURLFriendly } from "../../../../../utils/categoryFormating";
+import {
+  formatCategoryName,
+  convertCategoryNameToURLFriendly,
+} from "../../../../../utils/categoryFormating";
 
 interface DashboardSingleCategoryProps {
-  params: { id: number };
+  params: Promise<{
+    id: number;
+  }>;
 }
 
-const DashboardSingleCategory = ({
-  params: { id },
-}: DashboardSingleCategoryProps) => {
+const DashboardSingleCategory: React.FC<DashboardSingleCategoryProps> = ({
+  params,
+}) => {
   const [categoryInput, setCategoryInput] = useState<{ name: string }>({
     name: "",
   });
   const router = useRouter();
 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const { id } = await params;
+      const response = await fetch(
+        `http://localhost:3001/api/categories/${id}`
+      );
+      const data = await response.json();
+      setCategoryInput({ name: data.name });
+    };
+
+    fetchCategory();
+  }, [params]);
+
   const deleteCategory = async () => {
+    const { id } = await params;
     const requestOptions = {
       method: "DELETE",
     };
-    // sending API request for deleting a category
     fetch(`http://localhost:3001/api/categories/${id}`, requestOptions)
       .then((response) => {
         if (response.status === 204) {
           toast.success("Category deleted successfully");
           router.push("/admin/categories");
         } else {
-          throw Error("There was an error deleting a category");
+          throw new Error("There was an error deleting a category");
         }
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("There was an error deleting category");
       });
   };
 
   const updateCategory = async () => {
+    const { id } = await params;
     if (categoryInput.name.length > 0) {
       const requestOptions = {
         method: "PUT",
@@ -46,17 +65,16 @@ const DashboardSingleCategory = ({
           name: convertCategoryNameToURLFriendly(categoryInput.name),
         }),
       };
-      // sending API request for updating a category
       fetch(`http://localhost:3001/api/categories/${id}`, requestOptions)
         .then((response) => {
           if (response.status === 200) {
             return response.json();
           } else {
-            throw Error("Error updating a category");
+            throw new Error("Error updating a category");
           }
         })
-        .then((data) => toast.success("Category successfully updated"))
-        .catch((error) => {
+        .then(() => toast.success("Category successfully updated"))
+        .catch(() => {
           toast.error("There was an error while updating a category");
         });
     } else {
@@ -64,19 +82,6 @@ const DashboardSingleCategory = ({
       return;
     }
   };
-
-  useEffect(() => {
-    // sending API request for getting single categroy
-    fetch(`http://localhost:3001/api/categories/${id}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setCategoryInput({
-          name: data?.name,
-        });
-      });
-  }, [id]);
 
   return (
     <div className="bg-white flex justify-start max-w-screen-2xl mx-auto xl:h-full max-xl:flex-col max-xl:gap-y-5">
@@ -102,14 +107,14 @@ const DashboardSingleCategory = ({
         <div className="flex gap-x-2 max-sm:flex-col">
           <button
             type="button"
-            className="uppercase bg-blue-500 px-10 py-5 text-lg border border-black border-gray-300 font-bold text-white shadow-sm hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2"
+            className="uppercase bg-green-500 px-10 py-5 text-lg border  border-gray-300 font-bold text-white shadow-sm hover:bg-green-600 hover:text-white focus:outline-none focus:ring-2"
             onClick={updateCategory}
           >
             Update category
           </button>
           <button
             type="button"
-            className="uppercase bg-red-600 px-10 py-5 text-lg border border-black border-gray-300 font-bold text-white shadow-sm hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2"
+            className="uppercase bg-red-600 px-10 py-5 text-lg border  border-gray-300 font-bold text-white shadow-sm hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2"
             onClick={deleteCategory}
           >
             Delete category

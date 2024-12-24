@@ -31,6 +31,7 @@ const IncentiveCard: React.FC<IncentiveProps> = ({ incentive }) => {
             }`}
             src={incentive.imageSrc}
             alt={incentive.name}
+            unoptimized
           />
           <Image
             width={64}
@@ -40,6 +41,7 @@ const IncentiveCard: React.FC<IncentiveProps> = ({ incentive }) => {
             }`}
             src={incentive.svgSrc}
             alt={incentive.name}
+            unoptimized
           />
         </div>
       </div>

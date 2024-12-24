@@ -1,25 +1,26 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer, Header } from "@/components";
 import SessionProvider from "@/utils/SessionProvider";
 import Providers from "@/Providers";
-import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 import "svgmap/dist/svgMap.min.css";
+import { getServerSession } from "next-auth/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Home",
   description: "Aryusa herbal limited",
 };
 
 export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const session = await getServerSession();
+}) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en" data-theme="white">
       <body className={inter.className}>

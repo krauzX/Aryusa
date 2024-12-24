@@ -20,13 +20,13 @@ export const categoryMenuList = [
   {
     id: 4,
     title: "H",
-    src: "/camera icon.png",
+    src: "/icons8-shower-50.png",
     href: "/shop/H",
   },
   {
     id: 5,
     title: "w",
-    src: "/smart watch.png",
+    src: "/Logo.png",
     href: "/shop/w",
   },
 ];

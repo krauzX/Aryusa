@@ -25,7 +25,9 @@ const Testimonials: React.FC = () => {
             <div key={review.id} className="bg-primary flex-none w-full px-10">
               <div className=" text-green-800 font-bold px-12 py-8 max-lg:text-xl max-sm:text-lg rounded-lg shadow-lg border border-green-400 transform hover:scale-105 transition duration-300 ease-in-out">
                 <div className="bg-white p-6 rounded-lg shadow-md border border-green-300">
-                  <p className="italic mb-4">"{review.text}"</p>
+                  <p className="italic overflow-hidden mb-4">
+                    &quot;{review.text}&quot;
+                  </p>
                   <p className="font-semibold text-right">- {review.author}</p>
                 </div>
               </div>

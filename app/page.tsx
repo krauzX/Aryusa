@@ -16,6 +16,7 @@ export default function Home() {
       <Incentives />
       <CategoryMenu />
       <ProductsSection />
+      <Newsletter />
     </>
   );
 }

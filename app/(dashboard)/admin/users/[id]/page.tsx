@@ -1,4 +1,5 @@
 "use client";
+
 import { DashboardSidebar } from "@/components";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -6,12 +7,12 @@ import { useRouter } from "next/navigation";
 import { isValidEmailAddressFormat } from "@/lib/utils";
 
 interface DashboardUserDetailsProps {
-  params: { id: number };
+  params: Promise<{ id: number }>;
 }
 
-const DashboardSingleUserPage = ({
-  params: { id },
-}: DashboardUserDetailsProps) => {
+const DashboardSingleUserPage: React.FC<DashboardUserDetailsProps> = ({
+  params,
+}) => {
   const [userInput, setUserInput] = useState<{
     email: string;
     newPassword: string;
@@ -21,13 +22,31 @@ const DashboardSingleUserPage = ({
     newPassword: "",
     role: "",
   });
+  const [userId, setUserId] = useState<number | null>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { id } = await params;
+      setUserId(id);
+      const response = await fetch(`http://localhost:3001/api/users/${id}`);
+      const data = await response.json();
+      setUserInput({
+        email: data.email,
+        newPassword: "",
+        role: data.role,
+      });
+    };
+
+    fetchUser();
+  }, [params]);
+
   const deleteUser = async () => {
+    if (userId === null) return;
     const requestOptions = {
       method: "DELETE",
     };
-    fetch(`http://localhost:3001/api/users/${id}`, requestOptions)
+    fetch(`http://localhost:3001/api/users/${userId}`, requestOptions)
       .then((response) => {
         if (response.status === 204) {
           toast.success("User deleted successfully");
@@ -36,12 +55,13 @@ const DashboardSingleUserPage = ({
           throw Error("There was an error while deleting user");
         }
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("There was an error while deleting user");
       });
   };
 
   const updateUser = async () => {
+    if (userId === null) return;
     if (
       userInput.email.length > 3 &&
       userInput.role.length > 0 &&
@@ -62,7 +82,7 @@ const DashboardSingleUserPage = ({
             role: userInput.role,
           }),
         };
-        fetch(`http://localhost:3001/api/users/${id}`, requestOptions)
+        fetch(`http://localhost:3001/api/users/${userId}`, requestOptions)
           .then((response) => {
             if (response.status === 200) {
               return response.json();
@@ -70,8 +90,8 @@ const DashboardSingleUserPage = ({
               throw Error("Error while updating user");
             }
           })
-          .then((data) => toast.success("User successfully updated"))
-          .catch((error) => {
+          .then(() => toast.success("User successfully updated"))
+          .catch(() => {
             toast.error("There was an error while updating user");
           });
       } else {
@@ -83,21 +103,6 @@ const DashboardSingleUserPage = ({
       return;
     }
   };
-
-  useEffect(() => {
-    // sending API request for a single user
-    fetch(`http://localhost:3001/api/users/${id}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setUserInput({
-          email: data?.email,
-          newPassword: "",
-          role: data?.role,
-        });
-      });
-  }, [id]);
 
   return (
     <div className="bg-white flex justify-start max-w-screen-2xl mx-auto xl:h-full max-xl:flex-col max-xl:gap-y-5">

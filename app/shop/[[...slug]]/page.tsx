@@ -33,7 +33,7 @@ const ShopPage = async (slug: any) => {
           <div>
             <div className="flex justify-between items-center max-lg:flex-col max-lg:gap-y-5">
               <h2 className="text-2xl font-bold max-sm:text-xl max-[400px]:text-lg uppercase">
-                {slug_text.slug && slug_text[0]?.length > 0
+                {slug_text && slug_text[0]?.length > 0
                   ? improveCategoryText(slug_text.slug[0])
                   : "All products"}
               </h2>
