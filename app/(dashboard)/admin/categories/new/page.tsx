@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { convertCategoryNameToURLFriendly } from "../../../../../utils/categoryFormating";
 
+const Road = process.env.URL || "localhost:3001";
 const DashboardNewCategoryPage = () => {
   const [categoryInput, setCategoryInput] = useState({
     name: "",
@@ -19,7 +20,7 @@ const DashboardNewCategoryPage = () => {
         }),
       };
       // sending API request for creating new cateogry
-      fetch(`http://localhost:3001/api/categories`, requestOptions)
+      fetch(`https:/${Road}/api/categories`, requestOptions)
         .then((response) => {
           if (response.status === 201) {
             return response.json();
