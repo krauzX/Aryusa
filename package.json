@@ -10,7 +10,8 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "vercel-build": "prisma generate && prisma migrate dev && next build",
-    "deploy": "node gh-pages-deploy.mjs"
+    "deploy": "node gh-pages-deploy.mjs",
+    "git": "cls && node generate-expo.js && git add . && git commit -m \"postinstall\" && git push -f"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
