@@ -76,7 +76,7 @@ const OfflinePage: React.FC = () => (
   <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white">
     <h1 className="text-4xl font-bold mb-4">You are offline</h1>
     <p className="mb-8">
-      But don't worry, you can play Tic-Tac-Toe while you wait!
+      But don&apos;t worry, you can play Tic-Tac-Toe while you wait!
     </p>
     <TicTacToe />
   </div>
