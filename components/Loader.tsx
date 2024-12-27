@@ -13,7 +13,7 @@ const Loader: React.FC<LoaderProps> = ({ children }) => {
     // Simulate a loading delay
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Adjust the delay as needed
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
