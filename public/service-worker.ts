@@ -25,6 +25,5 @@ self.addEventListener("fetch", (event: FetchEvent) => {
   }
 });
 
-// TypeScript declarations to handle service worker types
 declare const self: ServiceWorkerGlobalScope;
 export {};

@@ -30,7 +30,8 @@
     "types/**/*.d.ts",
     "types/next-env.d.ts",
     "utils/insertDemoData.js",
-    "dist/types/**/*.ts"
+    "dist/types/**/*.ts",
+    "generate-expo.js"
   ],
   "exclude": ["node_modules"]
 }

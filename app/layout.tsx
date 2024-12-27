@@ -4,6 +4,7 @@ import { Footer, Header } from "@/components";
 import SessionProvider from "@/utils/SessionProvider";
 import Providers from "@/Providers";
 import { authOptions } from "@/auth";
+import ServiceWorker from "@/components/ServiceWorker";
 import "svgmap/dist/svgMap.min.css";
 import { getServerSession } from "next-auth/next";
 
@@ -28,6 +29,7 @@ export default async function RootLayout({
           <Header />
           <Providers>{children}</Providers>
           <Footer />
+          <ServiceWorker />
         </SessionProvider>
       </body>
     </html>

@@ -17,18 +17,6 @@ export const categoryMenuList = [
     src: "/Cosmetics.svg",
     href: "/shop/Cosmetics",
   },
-  {
-    id: 4,
-    title: "H",
-    src: "/icons8-shower-50.png",
-    href: "/shop/H",
-  },
-  {
-    id: 5,
-    title: "w",
-    src: "/Logo.png",
-    href: "/shop/w",
-  },
 ];
 
 export const incentives = [

@@ -1,0 +1,25 @@
+{
+  "description": "incomplete i am",
+  "theme_color": "#1efb0e",
+  "background_color": "#10b248",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon512_maskable.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "name": "Aryusa",
+  "short_name": "Aryusa"
+}
