@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "Product" (
+CREATE TABLE "Product" IF NOT EXISTS (
     "id" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "title" TEXT NOT NULL,
