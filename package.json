@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && prisma migrate dev && next build",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "deploy": "node gh-pages-deploy.mjs",
     "git": "cls && node generate-expo.js && git add . && git commit -m \"postinstall\" && git push -f"
   },
