@@ -1,20 +1,24 @@
-// *********************
-// Role of the component: Single product tabs on the single product page containing product description, main product info and reviews
-// Name of the component: ProductTabs.tsx
-// Component call: <ProductTabs product={product} />
-// Input parameters: { product: Product }
-// Output: Single product tabs containing product description, main product info and reviews
-// *********************
-
 "use client";
 
 import React, { useState } from "react";
 import RatingPercentElement from "./RatingPercentElement";
-import SingleReview from "./SingleReview";
 import { formatCategoryName } from "@/utils/categoryFormating";
 
 const ProductTabs = ({ product }: { product: Product }) => {
   const [currentProductTab, setCurrentProductTab] = useState<number>(0);
+
+  // Temporary static data for testing
+  const ratingsData = {
+    total: 1745,
+    average: 4.95,
+    breakdown: {
+      5: 70,
+      4: 17,
+      3: 8,
+      2: 4,
+      1: 1,
+    },
+  };
 
   return (
     <div className="px-5 text-black">
@@ -37,6 +41,15 @@ const ProductTabs = ({ product }: { product: Product }) => {
         >
           Additional info
         </a>
+        <a
+          role="tab"
+          className={`tab text-black text-lg pb-8 max-[500px]:text-base max-[400px]:text-sm max-[370px]:text-xs ${
+            currentProductTab === 2 && "tab-active"
+          }`}
+          onClick={() => setCurrentProductTab(2)}
+        >
+          Ratings
+        </a>
       </div>
       <div className="pt-5">
         {currentProductTab === 0 && (
@@ -47,12 +60,10 @@ const ProductTabs = ({ product }: { product: Product }) => {
           <div className="overflow-x-auto">
             <table className="table text-xl text-center max-[500px]:text-base">
               <tbody>
-                {/* row 1 */}
                 <tr>
                   <th>Manufacturer:</th>
                   <td>{product?.manufacturer}</td>
                 </tr>
-                {/* row 2 */}
                 <tr>
                   <th>Category:</th>
                   <td>
@@ -61,13 +72,23 @@ const ProductTabs = ({ product }: { product: Product }) => {
                       : "No category"}
                   </td>
                 </tr>
-                {/* row 3 */}
                 <tr>
                   <th>Color:</th>
                   <td>Silver, LightSlateGray, Blue</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        )}
+
+        {currentProductTab === 2 && (
+          <div>
+            <div className="mb-4">
+              <RatingPercentElement ratings={ratingsData} />
+            </div>
+            <div>
+              <p>No reviews yet.</p>
+            </div>
           </div>
         )}
       </div>

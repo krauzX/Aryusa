@@ -5,14 +5,16 @@ import {
   ProductTabs,
   SingleProductDynamicFields,
   AddToWishlistBtn,
+  SimpleSlider,
 } from "@/components";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
-import { FaSquareFacebook } from "react-icons/fa6";
-import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaSquarePinterest } from "react-icons/fa6";
-import Slider from "react-slick";
+import {
+  FaSquareFacebook,
+  FaSquareXTwitter,
+  FaSquarePinterest,
+} from "react-icons/fa6";
 
 interface ImageItem {
   imageID: string;
@@ -21,8 +23,8 @@ interface ImageItem {
 }
 
 const SingleProductPage = async ({ params }: SingleProductPageProps) => {
-  // sending API request for a single product with a given product slug+ /* @next-codemod-ignore */
-  let { productSlug } = await params;
+  // sending API request for a single product with a given product slug
+  const { productSlug } = await params;
 
   const data = await fetch(`http://localhost:3001/api/slugs/${productSlug}`);
   const product = await data.json();
@@ -32,41 +34,26 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
     `http://localhost:3001/api/images/${product.id}`
   );
   const images = await imagesData.json();
+  console.log(images);
 
   if (!product || product.error) {
     notFound();
   }
 
+  // Define the main image and additional images
+  const mainImage = product?.mainImage
+    ? `/${product.mainImage}`
+    : "/product_placeholder.jpg";
+  const additionalImages =
+    images?.map((imageItem: ImageItem) => `/${imageItem.image}`) || [];
+  const imageUrls = [mainImage, ...additionalImages];
+
   return (
     <div className="bg-white">
       <div className="max-w-screen-2xl mx-auto">
         <div className="flex justify-center gap-x-16 pt-10 max-lg:flex-col items-center gap-y-5 px-5">
-          <div>
-            <Image
-              src={
-                product?.mainImage
-                  ? `/${product?.mainImage}`
-                  : "/product_placeholder.jpg"
-              }
-              width={500}
-              height={500}
-              alt="main image"
-              className="w-auto h-auto"
-            />
-            <div className="flex justify-around mt-5 flex-wrap gap-y-1 max-[500px]:justify-center max-[500px]:gap-x-1">
-              {images?.map((imageItem: ImageItem) => (
-                <Image
-                  key={imageItem.imageID}
-                  src={`/${imageItem.image}`}
-                  width={100}
-                  height={100}
-                  alt="Image"
-                  className="w-auto h-auto"
-                />
-              ))}
-            </div>
-
-            <div></div>
+          <div className="w-full max-w-lg">
+            <SimpleSlider images={imageUrls} />
           </div>
           <div className="flex flex-col gap-y-7 text-black max-[500px]:text-center">
             <SingleProductRating rating={product?.rating} />
@@ -106,7 +93,7 @@ const SingleProductPage = async ({ params }: SingleProductPageProps) => {
                   src="/ae.svg"
                   width={50}
                   height={50}
-                  alt="americal express icon"
+                  alt="american express icon"
                   className="h-auto w-auto"
                 />
                 <Image

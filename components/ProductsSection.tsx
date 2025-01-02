@@ -10,23 +10,25 @@ import FeatureFlag from "./FeatureFlag";
 import ProductItem from "./ProductItem";
 import Heading from "./Heading";
 import Collection from "./Collection";
+let urll = "http://localhost:3001";
+urll = urll + "/api/products";
 
 const ProductsSection = async () => {
   // sending API request for getting all products
-  const data = await fetch("http://localhost:3001/api/products");
+  const data = await fetch(urll);
   const products = await data.json();
 
-  // Example collection data
+  // collection data
   const collections = [
     {
-      mainImage: "collection1.jpg", // Replace with actual image path
+      mainImage: "collection1.jpg",
       title: "Summer Sale",
       description: "Get the best deals on summer essentials.",
       offer: "Up to 50% Off",
       link: "/collections/summer-sale",
     },
     {
-      mainImage: "collection1.jpg", // Replace with actual image path
+      mainImage: "collection1.jpg",
       title: "Winter Collection",
       description: "Stay warm with our latest winter collection.",
       offer: "Up to 30% Off",

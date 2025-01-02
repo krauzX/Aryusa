@@ -29,6 +29,7 @@ export { default as Messages } from './Messages';
 export { default as Newsletter } from './Newsletter';
 export { default as OrderItem } from './OrderItem';
 export { default as Pagination } from './Pagination';
+export { default as PaymentProvider } from './PaymentProvider';
 export { default as ProductItem } from './ProductItem';
 export { default as ProductItemRating } from './ProductItemRating';
 export { default as Products } from './Products';
