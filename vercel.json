@@ -1,8 +1,12 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "app/next.config.js",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": {
+        "distDir": "dist"
+      }
     },
     {
       "src": "server/app.js",
@@ -10,7 +14,8 @@
     }
   ],
   "framework": "nextjs",
-  "buildCommand": "next build && cd ../server && npx prisma generate && npx prisma migrate deploy",
+  "cleanUrls": true,
+  "buildCommand": "next build --output dist && cd ../server && npx prisma generate && npx prisma migrate deploy",
   "redirects": [
     {
       "source": "/home",
