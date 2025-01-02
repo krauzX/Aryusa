@@ -1,5 +1,4 @@
 {
-  "version": 2,
   "builds": [
     {
       "src": "app/next.config.js",
@@ -10,16 +9,13 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "framework": "nextjs",
+  "buildCommand": "next build && cd ../server && npx prisma generate && npx prisma migrate deploy",
+  "redirects": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/app/$1"
+      "source": "/home",
+      "destination": "/",
+      "permanent": false
     }
-  ],
-  "cleanUrls": true,
-  "buildCommand": "next build && cd ../server && npx prisma generate && npx prisma migrate deploy"
+  ]
 }
