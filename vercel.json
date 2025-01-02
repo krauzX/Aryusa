@@ -1,17 +1,22 @@
 {
   "builds": [
     {
-      "src": "server/app.js",
-      "use": "@vercel/node"
+      "src": "app/next.config.js",
+      "use": "@vercel/next"
     },
     {
-      "src": "next.config.js",
-      "use": "@vercel/next"
+      "src": "server/app.js",
+      "use": "@vercel/node"
     }
   ],
   "framework": "nextjs",
   "cleanUrls": true,
-  "buildCommand": " next build",
-
-  "redirects": [{ "source": "/home", "destination": "/", "permanent": false }]
+  "buildCommand": "cd app && next build && cd ../server && npx prisma generate && npx prisma migrate deploy",
+  "redirects": [
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": false
+    }
+  ]
 }
