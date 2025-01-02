@@ -11,7 +11,7 @@
   ],
   "framework": "nextjs",
   "cleanUrls": true,
-  "buildCommand": "cd app && next build && cd ../server && npx prisma generate && npx prisma migrate deploy",
+  "buildCommand": "next build && cd ../server && npx prisma generate && npx prisma migrate deploy",
   "redirects": [
     {
       "source": "/home",
